@@ -59,7 +59,6 @@
           "choices": {
             "text": { "type": "SharedSlice" },
             "form": { "type": "SharedSlice" },
-            "article_list": { "type": "SharedSlice" },
             "highlighted_text": { "type": "SharedSlice" },
             "testimonials": { "type": "SharedSlice" },
             "call_to_action": { "type": "SharedSlice" }
