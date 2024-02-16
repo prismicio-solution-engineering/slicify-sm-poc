@@ -6,7 +6,7 @@ import * as prismic from "@prismicio/client";
 import { components as mktComponents } from "@/slices/marketing";
 import { components as blogComponents } from "@/slices/blog";
 import {
-  blogArticleGraphQuery, blogArticleLinkedArticlesGraphQuery,
+  blogArticleGraphQuery,
 } from "@/utils/graphQueries";
 import { getLanguages } from "@/utils/getLanguages";
 import BlogLayout from "@/components/BlogLayout";
@@ -78,15 +78,7 @@ export async function getStaticProps({
 
     if (page) {
 
-      const [linkedBlogArticles,header,footer,languages] = await Promise.all([
-        client.getByUID<prismic.Content.BlogArticleDocument>(
-          "blog_article",
-          slug,
-          {
-            lang: locale,
-            graphQuery: blogArticleLinkedArticlesGraphQuery,
-          }
-        ),
+      const [header,footer,languages] = await Promise.all([
         client.getSingle<prismic.Content.HeaderDocument>("header", {
           lang: locale,
         }),
@@ -95,8 +87,6 @@ export async function getStaticProps({
         }),
         getLanguages(page, client, locales)
       ])
-
-      page.data.slices = enrichSlices(page.data.slices, linkedBlogArticles.data.slices, ["article_list"])
 
       return {
         props: {
